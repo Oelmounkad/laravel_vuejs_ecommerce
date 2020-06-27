@@ -10,8 +10,16 @@ import { store } from './store/store';
 Vue.use(VueRouter);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('articles-component', require('./components/ArticlesComponent.vue').default);
 
-const routes = [];
+import Articles from './components/ArticlesComponent.vue';
+
+const routes = [
+    {
+        path: '/articles',
+        component: Articles
+    },
+];
 
 const router = new VueRouter({routes});
 
