@@ -33,8 +33,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <router-link to="/articles">Articles</router-link>
-                        <router-link to="/orders">Orders</router-link>
+                        <li class="nav-item">
+                           <router-link class="nav-link" to="/articles"> 
+                             <a >
+                           Articles
+                            </a>
+                            </router-link>
+                        </li>
+
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/orders"> 
+                              <a >
+                            My Orders
+                             </a>
+                             </router-link>
+                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
