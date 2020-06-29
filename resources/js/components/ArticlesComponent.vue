@@ -10,7 +10,7 @@
     <p class="card-text">{{ article.description }}</p>
     <p class="card-text">{{ article.price }} €</p>
     <p class="card-text">Available : {{ article.quantity }}</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
+    <a @click="addToCart(article.id)" class="btn btn-primary">Add to cart</a>
   </div>
 </div>
       </div>
@@ -21,14 +21,22 @@
 
 <script>
     export default {
+        props: ['userAuth'],
         mounted() {
             this.$store.dispatch('fetchArticles');
+            this.$store.commit('persistUser',this.userAuth.id);
+             this.$store.dispatch('fetchUserCart');
             console.log('Component mounted.')
         },
         computed:{
                 articles(){
                     return this.$store.state.articles
                 }
+        },
+        methods:{
+            addToCart(id){
+                 this.$store.dispatch('addToCart',id);   
+            }
         }
     }
 </script>

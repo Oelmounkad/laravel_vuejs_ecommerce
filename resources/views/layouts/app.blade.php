@@ -42,9 +42,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/orders"> 
+                            <router-link class="nav-link" to="/cart"> 
                               <a >
-                            My Orders
+                            My Cart
                              </a>
                              </router-link>
                          </li>

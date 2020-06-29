@@ -2,6 +2,6 @@
 
 @section('content')
 
-        <router-view></router-view>
+        <router-view v-bind:user-auth="{{ Auth::user() }}"></router-view>
 
 @endsection

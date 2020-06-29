@@ -9,13 +9,22 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-      articles : []
+      articles : [],
+      cart: [],
+      user: ''
         },
     getters: {},
     mutations: {
 
         fetchArticles: (state,payload) => {
             state.articles = payload.data;
+        },
+        persistUser: (state,payload) => {
+            state.user = payload;
+            console.log("user id : "+state.user)
+        },
+        fetchUserCart: (state,payload) => {
+            state.cart = payload.data;
         }
 
     },
@@ -28,6 +37,15 @@ export const store = new Vuex.Store({
                     })
                     .catch(err => console.log(err))
 
+                },
+                fetchUserCart: (context) =>{
+                    axios.get('http://127.0.0.1:8000'+'/carts/'+context.user)
+                    .then(res => {
+                        context.commit('fetchUserCart',res)
+                        console.log('heres the fetched cart : '+res.data)
+                    })
+                    .catch(err => console.log(err))
                 }
+                
     }
 });

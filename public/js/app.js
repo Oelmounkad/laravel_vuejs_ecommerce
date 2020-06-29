@@ -1930,13 +1930,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['userAuth'],
   mounted: function mounted() {
     this.$store.dispatch('fetchArticles');
+    this.$store.commit('persistUser', this.userAuth.id);
+    this.$store.dispatch('fetchUserCart');
     console.log('Component mounted.');
   },
   computed: {
     articles: function articles() {
       return this.$store.state.articles;
+    }
+  },
+  methods: {
+    addToCart: function addToCart(id) {
+      this.$store.dispatch('addToCart', id);
     }
   }
 });
@@ -80916,7 +80924,14 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "a",
-                { staticClass: "btn btn-primary", attrs: { href: "#" } },
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.addToCart(article.id)
+                    }
+                  }
+                },
                 [_vm._v("Add to cart")]
               )
             ])
@@ -97531,12 +97546,21 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    articles: []
+    articles: [],
+    cart: [],
+    user: ''
   },
   getters: {},
   mutations: {
     fetchArticles: function fetchArticles(state, payload) {
       state.articles = payload.data;
+    },
+    persistUser: function persistUser(state, payload) {
+      state.user = payload;
+      console.log("user id : " + state.user);
+    },
+    fetchUserCart: function fetchUserCart(state, payload) {
+      state.cart = payload.data;
     }
   },
   actions: {
@@ -97544,6 +97568,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       axios.get('http://127.0.0.1:8000' + '/articles').then(function (res) {
         context.commit('fetchArticles', res);
         console.log('heres the articles : ' + res.data);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    fetchUserCart: function fetchUserCart(context) {
+      axios.get('http://127.0.0.1:8000' + '/carts/' + context.user).then(function (res) {
+        context.commit('fetchUserCart', res);
+        console.log('heres the fetched cart : ' + res.data);
       })["catch"](function (err) {
         return console.log(err);
       });

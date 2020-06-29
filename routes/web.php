@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/carts','CartController@index');
+Route::get('/carts/{user_id}','CartController@getCartsOfUser');
+
 Auth::routes();
 Route::resource('/articles','ArticleController');
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
